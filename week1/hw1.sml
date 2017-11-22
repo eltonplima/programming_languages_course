@@ -4,11 +4,9 @@
 (* Day range 1-31 *)
 
 fun is_older(date1 : int * int * int, date2 : int * int * int) =
-    let
-        fun sum(date: int * int * int) = #1 date + #2 date + #3 date
-    in
-        sum(date1) < sum(date2)
-    end
+    if #1 date1 < #1 date2 then true else
+        if #2 date1 < #2 date2 then true else
+            if #3 date1 < #3 date2 then true else false
 
 fun number_in_month(dates: (int * int * int) list, month: int) =
     if null dates then 0 else
@@ -51,7 +49,7 @@ fun date_to_string(date: (int * int * int)) =
 exception EmptyList
 fun number_before_reaching_sum(sum: int, numbers: int list) =
     if null numbers then raise EmptyList else
-        if hd numbers >= sum then 1 else
+        if hd numbers >= sum then 0 else
             1 + number_before_reaching_sum(sum - hd numbers, tl numbers)
 
 exception InvalidDay
@@ -60,7 +58,7 @@ fun what_month(day: int) =
     let
         val last_day_months = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     in
-        number_before_reaching_sum(day, last_day_months)
+        number_before_reaching_sum(day, last_day_months) + 1
     end
 
 fun month_range(day1: int, day2: int) =
@@ -72,14 +70,14 @@ fun oldest(dates: (int * int * int) list) =
     if null dates then NONE else
         if null (tl dates) then SOME(hd dates) else
         let
-            fun older_date(dates: (int * int * int) list) =
+            fun oldest_date(dates: (int * int * int) list) =
                 if null (tl dates) then hd dates else
                 let
                     val date1 = hd dates
-                    val date2 = older_date(tl dates)
+                    val date2 = oldest_date(tl dates)
                 in
                     if is_older(date1, date2) then date1 else date2
                 end
         in
-            SOME(older_date(dates))
+            SOME(oldest_date(dates))
         end

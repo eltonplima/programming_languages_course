@@ -7,7 +7,12 @@
 * test1 = true : bool *)
 
 
-val test1 = is_older ((1,2,3),(2,3,4)) = true
+val test1 = is_older ((1,2,3), (2,3,4)) = true
+val test1_1 = is_older ((2,3,4), (1,2,3)) = false
+val test1_2 = is_older ((2017,3,4), (2018,2,3)) = true
+val test1_3 = is_older ((2017,3,4), (2016,2,3)) = false
+val test1_4 = is_older((2012,2,28), (2011,4,28)) = false
+val test1_5 = is_older((2011,4,28), (2012,2,28)) = true
 
 val test2 = number_in_month ([(2012,2,28),(2013,12,1)],2) = 1
 
@@ -23,18 +28,28 @@ val test5 = dates_in_months
 val test6 = get_nth (["hi", "there", "how", "are", "you"], 2) = "there"
 
 val test7 = date_to_string (2013, 6, 1) = "June 1, 2013"
-val test7_1 = date_to_string (2017, 1, 15) = "January 15, 2013"
-val test7_2 = date_to_string (2017, 5, 31) = "May 31, 2013"
+val test7_1 = date_to_string (2017, 1, 15) = "January 15, 2017"
+val test7_2 = date_to_string (2017, 5, 31) = "May 31, 2017"
 
-val test8 = number_before_reaching_sum (10, [1,2,3,4,5]) = 3
-val test8_1 = number_before_reaching_sum (1, [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]) = 1
-val test8_2 = number_before_reaching_sum (32, [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]) = 2
-val test8_3 = number_before_reaching_sum (60, [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]) = 3
-val test8_4 = number_before_reaching_sum (200, [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]) = 6
-val test8_5 = number_before_reaching_sum (365, [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]) = 12
+val test8 = number_before_reaching_sum (1, [1,2,3,4,5]) = 0
+val test8_1 = number_before_reaching_sum (2, [1,2,3,4,5]) = 1
+val test8_2 = number_before_reaching_sum (4, [1,2,3,4,5]) = 2
+val test8_3 = number_before_reaching_sum (10, [1,2,3,4,5]) = 3
+val test8_4 = number_before_reaching_sum (1, [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]) = 0
+val test8_5 = number_before_reaching_sum (32, [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]) = 1
+val test8_6 = number_before_reaching_sum (60, [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]) = 2
+val test8_7 = number_before_reaching_sum (200, [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]) = 6
+val test8_8 = number_before_reaching_sum (365, [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]) = 11
 
-val test9 = what_month 70 = 3
+val test9 = what_month 1 = 1
+val test9_1 = what_month 31 = 1
+val test9_2 = what_month 32 = 2
+val test9_3 = what_month 59 = 2
+val test9_4 = what_month 60 = 3
 
 val test10 = month_range (31, 34) = [1,2,2,2]
 
 val test11 = oldest([(2012,2,28),(2011,3,31),(2011,4,28)]) = SOME (2011,3,31)
+val test11_1 = oldest([(2012,2,28)]) = SOME (2012,2,28)
+val test11_2 = oldest([(2012,2,28),(2011,4,28)]) = SOME (2011,4,28)
+val test11_3 = oldest([(2011,4,28),(2012,2,28)]) = SOME (2011,4,28)
