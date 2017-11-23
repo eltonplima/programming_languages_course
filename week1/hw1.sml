@@ -1,12 +1,13 @@
-(* Format int * int * int where we have: year * month * day *)
-(* Not accept negative numbers *)
-(* Month range 1-12 *)
-(* Day range 1-31 *)
-
 fun is_older(date1 : int * int * int, date2 : int * int * int) =
-    if #1 date1 < #1 date2 then true else
-        if #2 date1 < #2 date2 then true else
-            if #3 date1 < #3 date2 then true else false
+    let
+        val hours_day = 1440
+        val hours_month = hours_day * (365 div 12)
+        val hours_year = hours_month * 12
+        val hours_d1 = #1 date1 * hours_year + #2 date1 * hours_month + #3 date1 * hours_day
+        val hours_d2 = #1 date2 * hours_year + #2 date2 * hours_month + #3 date2 * hours_day
+    in
+        hours_d1 < hours_d2
+    end
 
 fun number_in_month(dates: (int * int * int) list, month: int) =
     if null dates then 0 else
