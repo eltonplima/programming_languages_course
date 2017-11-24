@@ -82,3 +82,20 @@ fun oldest(dates: (int * int * int) list) =
         in
             SOME(oldest_date(dates))
         end
+
+fun number_in_months_challenge(dates: (int * int * int) list, months: int list) =
+    let
+        fun contains(value: int, values: int list) =
+            if null values then false else
+                if null (tl values) then false else
+                    if value = hd values then true else
+                        contains(value, tl values)
+        fun deduplicate(values: int list) =
+            if null values then [] else
+                if null (tl values) then values else
+                    if contains(hd values, tl values) then [] else
+                        hd values
+
+    in
+
+    end
