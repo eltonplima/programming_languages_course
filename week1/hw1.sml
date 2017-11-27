@@ -83,19 +83,117 @@ fun oldest(dates: (int * int * int) list) =
             SOME(oldest_date(dates))
         end
 
-fun number_in_months_challenge(dates: (int * int * int) list, months: int list) =
+(* challenges *)
+fun is_sorted(l: int list) =
+    if null l then false else
+        if null (tl l) then true else
+            let
+                val h = hd l
+                val n = hd (tl l)
+                val t = tl (tl l)
+            in
+                if h <= n andalso is_sorted(n::t) then true else false
+            end
+
+exception EmptyList
+fun min(l: int list) =
+    (* Returns the min value of a list and your position(1 indexed) *)
+    if null l then raise EmptyList else
+        let
+            fun inner_min(m: int list, n: int) =
+                if null (tl m) then (hd m, n) else
+                    let
+                        val x = hd m
+                        val y = inner_min(tl m, n + 1)
+                    in
+                        if x < #1y then (x, n) else y
+                    end
+        in
+            inner_min(l, 0)
+        end
+
+fun delete_nth(list, nth) =
+    if null list then [] else
+        let
+            fun inner_delete(pos, list) =
+                let
+                    val h = hd list
+                    val t = tl list
+                in
+                    if pos = nth then t else h::inner_delete(pos + 1, t)
+                end
+        in
+            inner_delete(0, list)
+        end
+
+fun deduplicate(values: int list) =
+    if null values then [] else
+        if null (tl values) then values else
+            let
+                val head = hd values
+                val neck = hd (tl values)
+                val tail = tl (tl values)
+            in
+                if head = neck then deduplicate(neck::tail) else
+                    head::deduplicate(neck::tail)
+            end
+
+fun sort(l: int list) =
     let
-        fun contains(value: int, values: int list) =
-            if null values then false else
-                if null (tl values) then false else
-                    if value = hd values then true else
-                        contains(value, tl values)
-        fun deduplicate(values: int list) =
-            if null values then [] else
-                if null (tl values) then values else
-                    if contains(hd values, tl values) then [] else
-                        hd values
-
+        fun inner_sort(l: int list) =
+            if null l then [] else
+                let
+                    val vp = min(l)
+                    val value = #1 vp
+                    val pos = #2 vp
+                in
+                    value::inner_sort(delete_nth(l, pos))
+                end
     in
+        let
+            val l = inner_sort(l)
+        in
+            deduplicate(l)
+        end
+    end
 
+(* challenge 12.1 *)
+fun number_in_months_challenge(dates: (int * int * int) list, months: int list) =
+    number_in_months(dates, sort(months))
+
+(* challenge 12.2 *)
+fun dates_in_months_challenge(dates: (int * int * int) list, months: int list) =
+    dates_in_months(dates, sort(months))
+
+(* challenge 13 *)
+fun is_valid_year(year) =
+    year > 0
+
+fun is_valid_month(month) =
+    month > 0 andalso month <= 12
+
+fun is_leap_year(year) =
+    if ((year mod 400) = 0) then true else
+        if ((year mod 4) = 0) andalso ((year mod 100) > 0) then true else false
+
+fun reasonable_date(date: (int * int * int)) =
+    let
+        val y = #1 date
+        val m = #2 date
+        val d = #3 date
+        val last_day_months = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    in
+        if is_valid_year(y) andalso is_valid_month(m)
+        then
+            let
+                val month_bound = List.nth(last_day_months, m - 1)
+            in
+                if m = 2 andalso is_leap_year(y)
+                then
+                    d <= month_bound + 1
+                else
+                    d <= month_bound
+            end
+        else
+            false
     end

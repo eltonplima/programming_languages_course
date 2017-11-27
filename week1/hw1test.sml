@@ -68,3 +68,72 @@ val test11_1 = oldest([(2012,2,28)]) = SOME (2012,2,28)
 val test11_2 = oldest([(2012,2,28),(2011,4,28)]) = SOME (2011,4,28)
 val test11_3 = oldest([(2011,4,28),(2012,2,28)]) = SOME (2011,4,28)
 val test11_4 = oldest([]) = NONE
+
+val test_12 = is_sorted([1,2,3])
+val test_12_1 = not (is_sorted([1,3,2]))
+val test_12_2 = not (is_sorted([3,2,1]))
+val test_12_3 = is_sorted([1,1,1])
+
+(*val test_sort = sort([1,2,3]) = [1,2,3]
+val test_sort_1 = sort([2,1,3]) = [1,2,3]
+val test_sort_2 = sort([2,3,1]) = [1,2,3]
+val test_sort_3 = sort([3,2,1]) = [1,2,3]
+val test_sort_4 = sort([3,2,1,4]) = [1,2,3,4]
+val test_sort_5 = sort([3,2,1,5,4]) = [1,2,3,4,5]*)
+
+val test_min_1 = min([1,2,3,4,5]) = (1, 0)
+val test_min_2 = min([2,1,3,4,5]) = (1, 1)
+val test_min_3 = min([2,3,1,4,5]) = (1, 2)
+val test_min_4 = min([2,3,4,1,5]) = (1, 3)
+val test_min_5 = min([2,3,4,5,1]) = (1, 4)
+
+val test_delete_nth_1 = delete_nth([1,2,3,4,5], 0) = [2,3,4,5]
+val test_delete_nth_2 = delete_nth([1,2,3,4,5], 1) = [1,3,4,5]
+val test_delete_nth_3 = delete_nth([1,2,3,4,5], 2) = [1,2,4,5]
+val test_delete_nth_4 = delete_nth([1,2,3,4,5], 3) = [1,2,3,5]
+val test_delete_nth_5 = delete_nth([1,2,3,4,5], 4) = [1,2,3,4]
+
+val test_deduplicate_1 = deduplicate([1,1,2,3,4,5]) = [1,2,3,4,5]
+val test_deduplicate_2 = deduplicate([1,1,2,2,3,4,5]) = [1,2,3,4,5]
+val test_deduplicate_3 = deduplicate([1,1,2,2,3,3,4,5]) = [1,2,3,4,5]
+val test_deduplicate_4 = deduplicate([1,1,2,3,4,4,4,5]) = [1,2,3,4,5]
+val test_deduplicate_5 = deduplicate([1,1,2,3,4,4,4,5,5,5,5]) = [1,2,3,4,5]
+
+val test_sort_1 = sort([1,1,2,3,4,5]) = [1,2,3,4,5]
+val test_sort_2 = sort([1,1,2,5,4,3]) = [1,2,3,4,5]
+val test_sort_3 = sort([1,1,3,5,4,2]) = [1,2,3,4,5]
+val test_sort_4 = sort([1,5,3,1,4,2]) = [1,2,3,4,5]
+
+(* challenge 2 tests *)
+
+val test_is_valid_year_1 = is_valid_year(0) = false
+val test_is_valid_year_2 = is_valid_year(1) = true
+
+val test_is_valid_month_1 = is_valid_month(0) = false
+val test_is_valid_month_2 = is_valid_month(1) = true
+val test_is_valid_month_3 = is_valid_month(2) = true
+val test_is_valid_month_4 = is_valid_month(3) = true
+val test_is_valid_month_5 = is_valid_month(4) = true
+val test_is_valid_month_6 = is_valid_month(5) = true
+val test_is_valid_month_7 = is_valid_month(6) = true
+val test_is_valid_month_8 = is_valid_month(7) = true
+val test_is_valid_month_9 = is_valid_month(8) = true
+val test_is_valid_month_10 = is_valid_month(9) = true
+val test_is_valid_month_11 = is_valid_month(10) = true
+val test_is_valid_month_12 = is_valid_month(11) = true
+val test_is_valid_month_13 = is_valid_month(12) = true
+val test_is_valid_month_14 = is_valid_month(13) = false
+
+val test_is_leap_year_1 = is_leap_year(400) = true
+val test_is_leap_year_2 = is_leap_year(800) = true
+val test_is_leap_year_3 = is_leap_year(2016) = true
+val test_is_leap_year_4 = is_leap_year(100) = false
+val test_is_leap_year_5 = is_leap_year(1900) = false
+
+val test_reasonable_date_1 = reasonable_date((2016, 1, 1)) = true
+val test_reasonable_date_2 = reasonable_date((2016, 2, 29)) = true
+val test_reasonable_date_3 = reasonable_date((2017, 2, 29)) = false
+val test_reasonable_date_4 = reasonable_date((0, 2, 29)) = false
+val test_reasonable_date_5 = reasonable_date((2017, 13, 29)) = false
+val test_reasonable_date_6 = reasonable_date((2017, 2, 30)) = false
+val test_reasonable_date_7 = reasonable_date((2017, 12, 31)) = true
