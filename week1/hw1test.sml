@@ -70,11 +70,6 @@ val test11_2 = oldest([(2012,2,28),(2011,4,28)]) = SOME (2011,4,28)
 val test11_3 = oldest([(2011,4,28),(2012,2,28)]) = SOME (2011,4,28)
 val test11_4 = oldest([]) = NONE
 
-val test_12 = is_sorted([1,2,3])
-val test_12_1 = not (is_sorted([1,3,2]))
-val test_12_2 = not (is_sorted([3,2,1]))
-val test_12_3 = is_sorted([1,1,1])
-
 (*val test_sort = sort([1,2,3]) = [1,2,3]
 val test_sort_1 = sort([2,1,3]) = [1,2,3]
 val test_sort_2 = sort([2,3,1]) = [1,2,3]

@@ -76,17 +76,6 @@ fun oldest(dates: (int * int * int) list) =
             end
 
 (* challenges *)
-fun is_sorted(l: int list) =
-    if null l then false else
-        if null (tl l) then true else
-            let
-                val h = hd l
-                val n = hd (tl l)
-                val t = tl (tl l)
-            in
-                if h <= n andalso is_sorted(n::t) then true else false
-            end
-
 exception EmptyList
 fun min(l: int list) =
     (* Returns the min value of a list and your position(1 indexed) *)
