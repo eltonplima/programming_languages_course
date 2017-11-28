@@ -102,29 +102,10 @@ val test_sort2_4 = sort([1,5,3,1,4,2]) = [1,1,2,3,4,5]
 
 (* challenge 2 tests *)
 
-val test_is_valid_year_1 = is_valid_year(0) = false
-val test_is_valid_year_2 = is_valid_year(1) = true
+val test_reasonable_date_invalid_year = reasonable_date((0, 12, 31)) = false
 
-val test_is_valid_month_1 = is_valid_month(0) = false
-val test_is_valid_month_2 = is_valid_month(1) = true
-val test_is_valid_month_3 = is_valid_month(2) = true
-val test_is_valid_month_4 = is_valid_month(3) = true
-val test_is_valid_month_5 = is_valid_month(4) = true
-val test_is_valid_month_6 = is_valid_month(5) = true
-val test_is_valid_month_7 = is_valid_month(6) = true
-val test_is_valid_month_8 = is_valid_month(7) = true
-val test_is_valid_month_9 = is_valid_month(8) = true
-val test_is_valid_month_10 = is_valid_month(9) = true
-val test_is_valid_month_11 = is_valid_month(10) = true
-val test_is_valid_month_12 = is_valid_month(11) = true
-val test_is_valid_month_13 = is_valid_month(12) = true
-val test_is_valid_month_14 = is_valid_month(13) = false
-
-val test_is_leap_year_1 = is_leap_year(400) = true
-val test_is_leap_year_2 = is_leap_year(800) = true
-val test_is_leap_year_3 = is_leap_year(2016) = true
-val test_is_leap_year_4 = is_leap_year(100) = false
-val test_is_leap_year_5 = is_leap_year(1900) = false
+val test_reasonable_date_invalid_month_1 = reasonable_date((2010, 0, 31)) = false
+val test_reasonable_date_invalid_month_2 = reasonable_date((2010, 13, 31)) = false
 
 val test_reasonable_date_1 = reasonable_date((2016, 1, 1)) = true
 val test_reasonable_date_2 = reasonable_date((2016, 2, 29)) = true
@@ -133,3 +114,8 @@ val test_reasonable_date_4 = reasonable_date((0, 2, 29)) = false
 val test_reasonable_date_5 = reasonable_date((2017, 13, 29)) = false
 val test_reasonable_date_6 = reasonable_date((2017, 2, 30)) = false
 val test_reasonable_date_7 = reasonable_date((2017, 12, 31)) = true
+val test_reasonable_date_8 = reasonable_date((400, 1, 1)) = true
+val test_reasonable_date_9 = reasonable_date((800, 1, 1)) = true
+val test_reasonable_date_10 = reasonable_date((2016, 1, 1)) = true
+val test_reasonable_date_11 = reasonable_date((100, 1, 1)) = true
+val test_reasonable_date_12 = reasonable_date((1900, 1, 1)) = true

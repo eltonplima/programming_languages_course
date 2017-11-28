@@ -99,7 +99,7 @@ fun delete_nth(list, nth) =
             val h = hd list
             val t = tl list
         in
-            if nth = 0 then t else h::delete_nth2(t, nth - 1)
+            if nth = 0 then t else h::delete_nth(t, nth - 1)
         end
 
 fun deduplicate(values: int list) =
@@ -121,7 +121,7 @@ fun sort(l: int list) =
             val value = #1 vp
             val pos = #2 vp
         in
-            value::sort2(delete_nth(l, pos))
+            value::sort(delete_nth(l, pos))
         end
 
 (* challenge 12.1 *)
@@ -133,24 +133,18 @@ fun dates_in_months_challenge(dates: (int * int * int) list, months: int list) =
     dates_in_months(dates, deduplicate(sort(months)))
 
 (* challenge 13 *)
-fun is_valid_year(year) =
-    year > 0
-
-fun is_valid_month(month) =
-    month > 0 andalso month <= 12
-
-fun is_leap_year(year) =
-    if ((year mod 400) = 0) then true else
-        if ((year mod 4) = 0) andalso ((year mod 100) > 0) then true else false
-
 fun reasonable_date(date: (int * int * int)) =
     let
         val y = #1 date
         val m = #2 date
         val d = #3 date
         val last_day_months = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+
+        fun is_leap_year(year) =
+            if ((year mod 400) = 0) then true else
+                if ((year mod 4) = 0) andalso ((year mod 100) > 0) then true else false
     in
-        if is_valid_year(y) andalso is_valid_month(m)
+        if y > 0 andalso m > 0 andalso m <= 12
         then
             let
                 val month_bound = List.nth(last_day_months, m - 1)
