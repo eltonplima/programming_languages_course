@@ -11,22 +11,20 @@ fun is_older(date1 : int * int * int, date2 : int * int * int) =
 
 fun number_in_month(dates: (int * int * int) list, month: int) =
     if null dates then 0 else
-    if #2 (hd dates) = month
-        then 1 + number_in_month(tl dates, month)
-        else number_in_month(tl dates, month)
+    if #2 (hd dates) = month then
+        1 + number_in_month(tl dates, month)
+    else
+        number_in_month(tl dates, month)
 
 fun number_in_months(dates: (int * int * int) list, months: int list) =
     if null dates orelse null months then 0 else
-        let
-            val dates_in_cur_month = number_in_month(dates, hd months)
-        in
-            if dates_in_cur_month > 0 then dates_in_cur_month + number_in_months(dates, tl months) else
-                number_in_months(dates, tl months)
-        end
+        number_in_month(dates, hd months) + number_in_months(dates, tl months)
 
 fun dates_in_month(dates: (int * int * int) list, month: int) =
     if null dates then [] else
-        if #2 (hd dates) = month then hd dates::dates_in_month(tl dates, month) else
+        if #2 (hd dates) = month then
+            hd dates::dates_in_month(tl dates, month)
+        else
             dates_in_month(tl dates, month)
 
 fun dates_in_months(dates: (int * int * int) list, months: int list) =
@@ -70,18 +68,12 @@ fun month_range(day1: int, day2: int) =
 fun oldest(dates: (int * int * int) list) =
     if null dates then NONE else
         if null (tl dates) then SOME(hd dates) else
-        let
-            fun oldest_date(dates: (int * int * int) list) =
-                if null (tl dates) then hd dates else
-                let
-                    val date1 = hd dates
-                    val date2 = oldest_date(tl dates)
-                in
-                    if is_older(date1, date2) then date1 else date2
-                end
-        in
-            SOME(oldest_date(dates))
-        end
+            let
+                val date1 = SOME(hd dates)
+                val date2 = oldest(tl dates)
+            in
+                if is_older(valOf date1, valOf date2) then date1 else date2
+            end
 
 (* challenges *)
 fun is_sorted(l: int list) =
