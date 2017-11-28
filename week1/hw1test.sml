@@ -95,10 +95,10 @@ val test_deduplicate_3 = deduplicate([1,1,2,2,3,3,4,5]) = [1,2,3,4,5]
 val test_deduplicate_4 = deduplicate([1,1,2,3,4,4,4,5]) = [1,2,3,4,5]
 val test_deduplicate_5 = deduplicate([1,1,2,3,4,4,4,5,5,5,5]) = [1,2,3,4,5]
 
-val test_sort_1 = sort([1,1,2,3,4,5]) = [1,2,3,4,5]
-val test_sort_2 = sort([1,1,2,5,4,3]) = [1,2,3,4,5]
-val test_sort_3 = sort([1,1,3,5,4,2]) = [1,2,3,4,5]
-val test_sort_4 = sort([1,5,3,1,4,2]) = [1,2,3,4,5]
+val test_sort2_1 = sort([1,1,2,3,4,5]) = [1,1,2,3,4,5]
+val test_sort2_2 = sort([1,1,2,5,4,3]) = [1,1,2,3,4,5]
+val test_sort2_3 = sort([1,1,3,5,4,2]) = [1,1,2,3,4,5]
+val test_sort2_4 = sort([1,5,3,1,4,2]) = [1,1,2,3,4,5]
 
 (* challenge 2 tests *)
 

@@ -96,15 +96,10 @@ fun min(l: int list) =
 fun delete_nth(list, nth) =
     if null list then [] else
         let
-            fun inner_delete(pos, list) =
-                let
-                    val h = hd list
-                    val t = tl list
-                in
-                    if pos = nth then t else h::inner_delete(pos + 1, t)
-                end
+            val h = hd list
+            val t = tl list
         in
-            inner_delete(0, list)
+            if nth = 0 then t else h::delete_nth2(t, nth - 1)
         end
 
 fun deduplicate(values: int list) =
@@ -120,31 +115,22 @@ fun deduplicate(values: int list) =
             end
 
 fun sort(l: int list) =
-    let
-        fun inner_sort(l: int list) =
-            if null l then [] else
-                let
-                    val vp = min(l)
-                    val value = #1 vp
-                    val pos = #2 vp
-                in
-                    value::inner_sort(delete_nth(l, pos))
-                end
-    in
+    if null l then [] else
         let
-            val l = inner_sort(l)
+            val vp = min(l)
+            val value = #1 vp
+            val pos = #2 vp
         in
-            deduplicate(l)
+            value::sort2(delete_nth(l, pos))
         end
-    end
 
 (* challenge 12.1 *)
 fun number_in_months_challenge(dates: (int * int * int) list, months: int list) =
-    number_in_months(dates, sort(months))
+    number_in_months(dates, deduplicate(sort(months)))
 
 (* challenge 12.2 *)
 fun dates_in_months_challenge(dates: (int * int * int) list, months: int list) =
-    dates_in_months(dates, sort(months))
+    dates_in_months(dates, deduplicate(sort(months)))
 
 (* challenge 13 *)
 fun is_valid_year(year) =
